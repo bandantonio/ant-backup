@@ -1,7 +1,0 @@
-[build]
-  base = "/"
-  publish = "public/"
-  command = "npm run build"
-
-[context.gh-pages]
-  ignore = "exit 0"
