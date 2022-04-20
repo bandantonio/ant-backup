@@ -14,10 +14,23 @@
       "test/"
     ]
   },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ],
+    "dryRun": true
+  },
   "keywords": [],
   "author": "",
+  "repository": "https://github.com/bandantonio/ant-backup",
   "license": "ISC",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
     "axios": "^0.25.0",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
@@ -28,6 +41,7 @@
     "mocha": "^9.2.2",
     "mock-fs": "^5.1.2",
     "nyc": "^15.1.0",
+    "semantic-release": "^19.0.2",
     "semistandard": "^16.0.1",
     "showdown": "^1.9.1"
   }
