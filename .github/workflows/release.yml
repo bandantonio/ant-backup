@@ -1,0 +1,33 @@
+name: antmarky-release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  node-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node-cache
+        id: cache-node-modules
+        with:
+          node-version: '16'
+      - run: npm i
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+  release:
+    name: 📦 Release
+    needs: [node-setup, run-tests, generate-docs]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/node-cache
+        id: cache-node-modules
+        with:
+          node-version: '16'
+
+      - name: 📦 Run semantic release
+        id: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
