@@ -6,6 +6,7 @@ on:
 jobs:
   build-docker-image:
     name: 🐋 Build and push Docker image
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3g
@@ -15,20 +16,22 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: bandantonio/antmarky
+          flavor: |
+            latest=false
           tags: |
             type=semver,pattern={{version}}
       
-      - name: 🔑 Login to Docker Hub
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
-        with: 
-          username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      # - name: 🔑 Login to Docker Hub
+      #   if: github.event_name != 'pull_request'
+      #   uses: docker/login-action@v1
+      #   with: 
+      #     username: ${{ secrets.DOCKER_HUB_USER }}
+      #     password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: 📦 🚀 Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+      # - name: 📦 🚀 Build and push Docker image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     push: ${{ github.event_name != 'pull_request' }}
+      #     tags: ${{ steps.docker_meta.outputs.tags }}
+      #     labels: ${{ steps.docker_meta.outputs.labels }}
