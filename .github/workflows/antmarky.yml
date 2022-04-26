@@ -73,7 +73,7 @@ jobs:
     needs: generate-docs
     if: |
       github.ref == 'refs/heads/main' ||
-      github.ref == 'refs/tags/v*'
+      startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -85,4 +85,4 @@ jobs:
           images: bandantonio/antmarky
           tags: |
             type=semver,pattern={{version}}
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
