@@ -62,21 +62,3 @@ jobs:
         id: build_docs
         if: steps.cache-node-modules.outcome == 'success'
         run: npm run build
-
-  release:
-    name: 📦 Release
-    needs: [run-tests, generate-docs]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/node-cache
-        id: cache-node-modules
-        with:
-          node-version: '16'
-
-      - name: 📦 Run semantic release
-        if: steps.run-tests.outcome == 'success' && github.ref == 'refs/heads/main'
-        id: release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
