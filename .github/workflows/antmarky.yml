@@ -71,7 +71,7 @@ jobs:
   build-docker-image:
     name: 🐋 Build and push Docker image
     needs: generate-docs
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/tags/*'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -83,4 +83,4 @@ jobs:
           images: bandantonio/antmarky
           tags: |
             type=semver,pattern={{version}}
-            type=ref,event=tag
+            type=raw,value=latest,enable={{is_default_branch}}
