@@ -71,7 +71,9 @@ jobs:
   build-docker-image:
     name: 🐋 Build and push Docker image
     needs: generate-docs
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/tags/*'
+    if: |
+      github.ref == 'refs/heads/main' ||
+      github.ref == 'refs/tags/v*'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
