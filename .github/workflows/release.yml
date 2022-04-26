@@ -4,8 +4,6 @@ on:
     tags:
       - '**'
       # - 'v[0-9].[0-9]+.[0-9]+'
-    branches:
-      - main
 
 concurrency:
   group: ${{ github.ref }}
@@ -14,6 +12,7 @@ concurrency:
 jobs:
   build-docker-image:
     name: 🐋 Build and push Docker image
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
