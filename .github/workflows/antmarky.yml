@@ -1,9 +1,9 @@
 name: antmarky
 on: [push]
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.ref }}
+#   cancel-in-progress: true
 
 jobs:
   node-setup:
