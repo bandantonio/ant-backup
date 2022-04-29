@@ -74,7 +74,7 @@ jobs:
       - name: Create a GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          append_body: 'This release was generated automatically. Full details will be available soon'
+          body: 'This release was generated automatically. Full details will be available soon'
           draft: true
 
   build-docker-image:
