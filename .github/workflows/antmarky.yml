@@ -64,7 +64,7 @@ jobs:
         run: npm run build
 
   generate-release:
-    name: 📚 Generate GitHub Release
+    name: 📦 Generate GitHub Release
     if: startsWith(github.ref, 'refs/tags/v')
     needs: generate-docs
     runs-on: ubuntu-latest
@@ -113,6 +113,6 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_ALT_TOKEN }}
           repository: bandantonio/antmarky
           short-description: ${{ github.event.repository.description }}
